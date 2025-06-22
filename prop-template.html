@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentSpace - Your Premium Rental Property Platform</title>
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded CSS for Blogspot -->
+    <style>
+    /* Reset and Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+    }
+
+    .logo h2 {
+        color: #2563eb;
+        font-weight: 700;
+    }
+
+    .logo i {
+        margin-right: 8px;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #374151;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+    }
+
+    .nav-link:hover {
+        color: #2563eb;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #2563eb;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .post-property-btn {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .post-property-btn::after {
+        display: none;
+    }
+
+    .post-property-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: #374151;
+        margin: 3px 0;
+        transition: 0.3s;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') center/cover;
+        opacity: 0.1;
+        z-index: -1;
+    }
+
+    .hero-content {
+        max-width: 1000px;
+        padding: 0 20px;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+    }
+
+    /* Search Container */
+    .search-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .search-tabs {
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .search-tab {
+        background: #f8fafc;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .search-tab.active {
+        background: #2563eb;
+        color: white;
+    }
+
+    .search-form {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr auto;
+        gap: 15px;
+        align-items: end;
+    }
+
+    .search-field {
+        position: relative;
+    }
+
+    .search-field i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        z-index: 2;
+    }
+
+    .search-field input,
+    .search-field select {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .search-field input:focus,
+    .search-field select:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .search-btn {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Stats */
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat h3 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fbbf24;
+    }
+
+    .stat p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    /* Properties Section */
+    .properties {
+        padding: 100px 0;
+        background: #f8fafc;
+    }
+
+    .properties h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #1f2937;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #64748b;
+        margin-bottom: 50px;
+    }
+
+    .property-filters {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        background: white;
+        border: 2px solid #e2e8f0;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+        transform: translateY(-2px);
+    }
+
+    .property-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+        min-height: 400px;
+    }
+
+    .property-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .property-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .property-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .property-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .property-card:hover .property-image img {
+        transform: scale(1.1);
+    }
+
+    .property-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #10b981;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .property-info {
+        padding: 25px;
+    }
+
+    .property-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2563eb;
+        margin-bottom: 10px;
+    }
+
+    .property-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #1f2937;
+    }
+
+    .property-location {
+        color: #64748b;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .property-features {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #64748b;
+    }
+
+    .property-features span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .property-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #2563eb;
+        border: 2px solid #2563eb;
+        flex: 1;
+    }
+
+    .btn-secondary:hover {
+        background: #2563eb;
+        color: white;
+    }
+
+    .load-more {
+        text-align: center;
+    }
+
+    /* About Section */
+    .about {
+        padding: 100px 0;
+        background: white;
+    }
+
+    .about h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #1f2937;
+    }
+
+    .about-intro {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #64748b;
+        margin-bottom: 40px;
+        line-height: 1.7;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .feature {
+        text-align: center;
+        padding: 30px;
+        background: #f8fafc;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .feature:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature i {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 20px;
+    }
+
+    .feature h4 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #1f2937;
+    }
+
+    .feature p {
+        color: #64748b;
+        line-height: 1.6;
+    }
+
+    .mission-statement {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .mission-statement blockquote {
+        font-style: italic;
+        font-size: 1.3rem;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* Contact Section */
+    .contact {
+        padding: 100px 0;
+        background: #f8fafc;
+    }
+
+    .contact h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #1f2937;
+    }
+
+    .contact > p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #64748b;
+        margin-bottom: 50px;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .contact-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .contact-item i {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-item h4 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: #1f2937;
+    }
+
+    .contact-item p {
+        color: #64748b;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 15px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Footer */
+    .footer {
+        background: #1f2937;
+        color: white;
+        padding: 60px 0 20px;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-section h3,
+    .footer-section h4 {
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .footer-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .footer-section p {
+        color: #9ca3af;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-links a {
+        width: 40px;
+        height: 40px;
+        background: #374151;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .social-links a:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+    }
+
+    .footer-section ul {
+        list-style: none;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+        color: #9ca3af;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+        color: white;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #374151;
+        color: #9ca3af;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu li {
+            margin: 15px 0;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+        }
+
+        .search-form {
+            grid-template-columns: 1fr;
+        }
+
+        .stats {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .property-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-features {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero h1 {
+            font-size: 2rem;
+        }
+
+        .search-container {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .stats {
+            grid-template-columns: 1fr;
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+    }
+
+    /* Loading Animation */
+    .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e2e8f0;
+        border-top: 4px solid #2563eb;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-home"></i> RentSpace</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#properties" class="nav-link">Browse Rentals</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#contact" class="nav-link post-property-btn">Get Started</a></li>
+                </ul>
+                <div class="hamburger" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Rental Home</h1>
+            <p>Discover amazing rental properties tailored just for you. No buying, no selling - just premium rentals.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-tabs">
+                    <button class="search-tab active">
+                        <i class="fas fa-key"></i> Rent
+                    </button>
+                </div>
+                <div class="search-form">
+                    <div class="search-field">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Enter city, locality, or landmark" id="location-input">
+                    </div>
+                    <div class="search-field">
+                        <select id="property-type">
+                            <option value="">Property Type</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">House</option>
+                            <option value="studio">Studio</option>
+                            <option value="pg">PG/Hostel</option>
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <select id="budget">
+                            <option value="">Budget</option>
+                            <option value="0-10000">Under ₹10,000</option>
+                            <option value="10000-25000">₹10,000 - ₹25,000</option>
+                            <option value="25000-50000">₹25,000 - ₹50,000</option>
+                            <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                            <option value="100000+">Above ₹1,00,000</option>
+                        </select>
+                    </div>
+                    <button class="search-btn" onclick="searchProperties()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats">
+                <div class="stat">
+                    <h3>50,000+</h3>
+                    <p>Rental Properties</p>
+                </div>
+                <div class="stat">
+                    <h3>1,00,000+</h3>
+                    <p>Happy Tenants</p>
+                </div>
+                <div class="stat">
+                    <h3>25,000+</h3>
+                    <p>Property Owners</p>
+                </div>
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Cities Covered</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section id="properties" class="properties">
+        <div class="container">
+            <h2>Featured Rental Properties</h2>
+            <p class="section-subtitle">Handpicked properties for the best rental experience</p>
+            
+            <div class="property-filters">
+                <button class="filter-btn active" onclick="filterProperties('all')">All Properties</button>
+                <button class="filter-btn" onclick="filterProperties('apartment')">Apartments</button>
+                <button class="filter-btn" onclick="filterProperties('house')">Houses</button>
+                <button class="filter-btn" onclick="filterProperties('studio')">Studios</button>
+                <button class="filter-btn" onclick="filterProperties('pg')">PG/Hostels</button>
+            </div>
+
+            <div class="property-grid" id="property-grid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <div class="load-more">
+                <button class="btn-secondary" onclick="loadMoreProperties()">Load More Properties</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Why RentSpace?</h2>
+            <p class="about-intro">In today's fast-paced world, finding the perfect rental property shouldn't be a struggle. That's why we created RentSpace - a platform dedicated exclusively to rental properties.</p>
+            
+            <div class="about-features">
+                <div class="feature">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Rental-Focused Experience</h4>
+                    <p>Unlike other platforms that mix buying and selling with rentals, we focus 100% on rentals. This means better search filters, rental-specific features, and a community that understands renting.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h4>Save Time & Effort</h4>
+                    <p>We understand how exhausting it can be to scroll through irrelevant property listings. Our platform eliminates the noise and shows you only what matters - quality rental properties.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-heart"></i>
+                    <h4>Built for Renters</h4>
+                    <p>Every feature is designed with renters in mind - from rental affordability calculators to neighborhood safety ratings, tenant reviews, and flexible lease terms.</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Trusted Community</h4>
+                    <p>We've built a community where property owners and tenants can connect with confidence. Verified profiles, transparent communication, and fair rental practices.</p>
+                </div>
+            </div>
+
+            <div class="mission-statement">
+                <blockquote>
+                    "Our mission is simple: to make renting easy, transparent, and stress-free for everyone. We believe that finding a home to rent should be an exciting journey, not a frustrating struggle."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>Have questions? We're here to help you find your perfect rental home.</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 9876543210</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@rentspace.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Rental Street, Property City, PC 12345</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" onsubmit="handleContactForm(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Your Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-home"></i> RentSpace</h3>
+                    <p>Your trusted partner in finding the perfect rental property. Making renting simple, transparent, and stress-free.</p>
+                    <div class="social-links">
+                        <a href="#" onclick="showMessage('Facebook page coming soon!')"><i class="fab fa-facebook"></i></a>
+                        <a href="#" onclick="showMessage('Twitter page coming soon!')"><i class="fab fa-twitter"></i></a>
+                        <a href="#" onclick="showMessage('Instagram page coming soon!')"><i class="fab fa-instagram"></i></a>
+                        <a href="#" onclick="showMessage('LinkedIn page coming soon!')"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Tenants</h4>
+                    <ul>
+                        <li><a href="#properties">Browse Rentals</a></li>
+                        <li><a href="#about">Rental Guide</a></li>
+                        <li><a href="#contact">Support</a></li>
+                        <li><a href="#about">Rental Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Owners</h4>
+                    <ul>
+                        <li><a href="#contact">List Property</a></li>
+                        <li><a href="#about">Owner Guide</a></li>
+                        <li><a href="#contact">Support</a></li>
+                        <li><a href="#about">Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Help Center</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#about">Privacy Policy</a></li>
+                        <li><a href="#about">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 RentSpace. All rights reserved. | Making rentals simple and transparent.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+    // Sample property data
+    const sampleProperties = [
+        {
+            id: 1,
+            title: "Modern 2BHK Apartment",
+            type: "apartment",
+            price: 25000,
+            location: "Koramangala, Bangalore",
+            bedrooms: 2,
+            area: 1200,
+            image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Furnished", "Parking", "Gym"],
+            badge: "Featured"
+        },
+        {
+            id: 2,
+            title: "Spacious 3BHK House",
+            type: "house",
+            price: 45000,
+            location: "Whitefield, Bangalore",
+            bedrooms: 3,
+            area: 1800,
+            image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Semi-Furnished", "Garden", "Security"],
+            badge: "New"
+        },
+        {
+            id: 3,
+            title: "Cozy Studio Apartment",
+            type: "studio",
+            price: 15000,
+            location: "HSR Layout, Bangalore",
+            bedrooms: 1,
+            area: 500,
+            image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Fully Furnished", "WiFi", "AC"],
+            badge: "Hot Deal"
+        },
+        {
+            id: 4,
+            title: "Premium PG for Professionals",
+            type: "pg",
+            price: 12000,
+            location: "Electronic City, Bangalore",
+            bedrooms: 1,
+            area: 200,
+            image: "https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Food Included", "Laundry", "WiFi"],
+            badge: "Popular"
+        },
+        {
+            id: 5,
+            title: "Luxury 4BHK Villa",
+            type: "house",
+            price: 85000,
+            location: "Hebbal, Bangalore",
+            bedrooms: 4,
+            area: 2500,
+            image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Swimming Pool", "Gym", "Garden"],
+            badge: "Premium"
+        },
+        {
+            id: 6,
+            title: "Budget-Friendly 1BHK",
+            type: "apartment",
+            price: 18000,
+            location: "Marathahalli, Bangalore",
+            bedrooms: 1,
+            area: 600,
+            image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            features: ["Semi-Furnished", "Balcony", "Lift"],
+            badge: "Best Value"
+        }
+    ];
+
+    let currentProperties = [...sampleProperties];
+    let currentFilter = 'all';
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(loadProperties, 1000); // Add delay to show loading
+        animateCounters();
+    });
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        const navMenu = document.querySelector('.nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
+
+    // Close mobile menu when clicking on links
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('nav-link')) {
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
+
+    // Load and display properties
+    function loadProperties(filter = 'all') {
+        const filteredProperties = filter === 'all' 
+            ? currentProperties 
+            : currentProperties.filter(prop => prop.type === filter);
+        
+        displayProperties(filteredProperties);
+    }
+
+    function displayProperties(properties) {
+        const propertyGrid = document.getElementById('property-grid');
+        
+        if (properties.length === 0) {
+            propertyGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #64748b;">
+                    <i class="fas fa-home" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px; color: #374151;">No properties found</h3>
+                    <p>Try adjusting your filters or search criteria.</p>
+                </div>
+            `;
+            return;
+        }
+
+        propertyGrid.innerHTML = properties.map(property => `
+            <div class="property-card" data-type="${property.type}">
+                <div class="property-image">
+                    <img src="${property.image}" alt="${property.title}" loading="lazy">
+                    <div class="property-badge">${property.badge}</div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">₹${property.price.toLocaleString('en-IN')}/month</div>
+                    <h3 class="property-title">${property.title}</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${property.location}
+                    </div>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> ${property.bedrooms} BHK</span>
+                        <span><i class="fas fa-ruler-combined"></i> ${property.area} sq ft</span>
+                        <span><i class="fas fa-check-circle"></i> ${property.features[0]}</span>
+                    </div>
+                    <div class="property-actions">
+                        <button class="btn-primary" onclick="contactOwner(${property.id})">Contact Owner</button>
+                        <button class="btn-secondary" onclick="viewDetails(${property.id})">View Details</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Filter properties
+    function filterProperties(filter) {
+        currentFilter = filter;
+        
+        // Update active filter button
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // Filter and display properties
+        loadProperties(filter);
+    }
+
+    // Search properties
+    function searchProperties() {
+        const location = document.getElementById('location-input').value.toLowerCase();
+        const propertyType = document.getElementById('property-type').value;
+        const budget = document.getElementById('budget').value;
+        
+        let filteredProperties = [...sampleProperties];
+        
+        // Filter by location
+        if (location) {
+            filteredProperties = filteredProperties.filter(prop => 
+                prop.location.toLowerCase().includes(location) ||
+                prop.title.toLowerCase().includes(location)
+            );
+        }
+        
+        // Filter by property type
+        if (propertyType) {
+            filteredProperties = filteredProperties.filter(prop => prop.type === propertyType);
+        }
+        
+        // Filter by budget
+        if (budget) {
+            const [min, max] = budget.split('-').map(b => parseInt(b.replace('+', '')));
+            if (max) {
+                filteredProperties = filteredProperties.filter(prop => 
+                    prop.price >= min && prop.price <= max
+                );
+            } else {
+                filteredProperties = filteredProperties.filter(prop => prop.price >= min);
+            }
+        }
+        
+        currentProperties = filteredProperties;
+        displayProperties(filteredProperties);
+        
+        // Scroll to properties section
+        document.getElementById('properties').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+        
+        // Show search results message
+        showMessage(`Found ${filteredProperties.length} properties matching your criteria`);
+    }
+
+    // Load more properties
+    function loadMoreProperties() {
+        showMessage('Loading more properties...');
+        
+        setTimeout(() => {
+            const moreProperties = [
+                {
+                    id: 7,
+                    title: "Executive Studio Near IT Park",
+                    type: "studio",
+                    price: 22000,
+                    location: "Sarjapur Road, Bangalore",
+                    bedrooms: 1,
+                    area: 700,
+                    image: "https://images.unsplash.com/photo-1502672260266-1c6c47c8bf16?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    features: ["Fully Furnished", "High-Speed WiFi", "Power Backup"],
+                    badge: "Tech Hub"
+                },
+                {
+                    id: 8,
+                    title: "Family-Friendly 3BHK",
+                    type: "apartment",
+                    price: 38000,
+                    location: "Indiranagar, Bangalore",
+                    bedrooms: 3,
+                    area: 1400,
+                    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    features: ["Kids Play Area", "School Nearby", "Security"],
+                    badge: "Family Choice"
+                }
+            ];
+            
+            currentProperties.push(...moreProperties);
+            loadProperties(currentFilter);
+            showMessage('More properties loaded!');
+        }, 1500);
+    }
+
+    // Contact owner
+    function contactOwner(propertyId) {
+        const property = sampleProperties.find(p => p.id === propertyId);
+        if (property) {
+            showMessage(`Great choice! "${property.title}" owner will contact you soon. Check your email/phone for details.`);
+        }
+    }
+
+    // View property details
+    function viewDetails(propertyId) {
+        const property = sampleProperties.find(p => p.id === propertyId);
+        if (property) {
+            showMessage(`Opening details for "${property.title}". Full property details feature coming soon!`);
+        }
+    }
+
+    // Handle contact form
+    function handleContactForm(e) {
+        e.preventDefault();
+        showMessage('Thank you for your message! We will get back to you within 24 hours.');
+        e.target.reset();
+    }
+
+    // Show notification message
+    function showMessage(message) {
+        // Remove existing messages
+        const existingMessages = document.querySelectorAll('.toast-message');
+        existingMessages.forEach(msg => msg.remove());
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 90px;
+                right: 20px;
+                background: #2563eb;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 3000;
+                max-width: 400px;
+                animation: slideIn 0.3s ease;
+            ">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>${message}</span>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.remove();
+        }, 4000);
+    }
+
+    // Animate counters
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat h3');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.textContent.replace(/[^0-9]/g, ''));
+                    const increment = target / 50;
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        if (current < target) {
+                            current += increment;
+                            if (counter.textContent.includes('+')) {
+                                counter.textContent = Math.ceil(current).toLocaleString('en-IN') + '+';
+                            } else {
+                                counter.textContent = Math.ceil(current).toLocaleString('en-IN');
+                            }
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            if (counter.textContent.includes('+')) {
+                                counter.textContent = target.toLocaleString('en-IN') + '+';
+                            } else {
+                                counter.textContent = target.toLocaleString('en-IN');
+                            }
+                        }
+                    };
+                    
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        });
+        
+        counters.forEach(counter => observer.observe(counter));
+    }
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+            header.style.background = 'rgba(255, 255, 255, 0.98)';
+            header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+        } else {
+            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
+    });
+
+    // Add slide animation for toast messages
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    </script>
+</body>
+</html>
